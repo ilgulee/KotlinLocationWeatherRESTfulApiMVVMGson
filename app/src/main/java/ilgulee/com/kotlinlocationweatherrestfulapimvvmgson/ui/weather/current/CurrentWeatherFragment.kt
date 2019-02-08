@@ -7,6 +7,11 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import ilgulee.com.kotlinlocationweatherrestfulapimvvmgson.R
+import ilgulee.com.kotlinlocationweatherrestfulapimvvmgson.data.XUWeatherApiService
+import kotlinx.android.synthetic.main.current_weather_fragment.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
 class CurrentWeatherFragment : Fragment() {
 
@@ -28,6 +33,15 @@ class CurrentWeatherFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProviders.of(this).get(CurrentWeatherViewModel::class.java)
         // TODO: Use the ViewModel
+
+
+        //just confirm if the retrofit returns the correct data
+        val apiService = XUWeatherApiService()
+        GlobalScope.launch(Dispatchers.Main) {
+            val response = apiService.getCurrentWeather("Seoul").await()
+            text_test.text = response.toString()
+        }
+
     }
 
 }
