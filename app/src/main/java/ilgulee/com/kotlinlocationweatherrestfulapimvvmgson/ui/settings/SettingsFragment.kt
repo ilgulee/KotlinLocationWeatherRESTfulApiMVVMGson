@@ -1,0 +1,6 @@
+package ilgulee.com.kotlinlocationweatherrestfulapimvvmgson.ui.settings
+
+import androidx.fragment.app.Fragment
+
+class SettingsFragment : Fragment() {
+}
