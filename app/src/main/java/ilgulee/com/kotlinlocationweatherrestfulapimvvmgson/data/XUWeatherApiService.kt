@@ -2,7 +2,7 @@ package ilgulee.com.kotlinlocationweatherrestfulapimvvmgson.data
 
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import ilgulee.com.kotlinlocationweatherrestfulapimvvmgson.BuildConfig
-import ilgulee.com.kotlinlocationweatherrestfulapimvvmgson.data.response.CurrentWeatherResponse
+import ilgulee.com.kotlinlocationweatherrestfulapimvvmgson.data.network.response.CurrentWeatherResponse
 import kotlinx.coroutines.Deferred
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient

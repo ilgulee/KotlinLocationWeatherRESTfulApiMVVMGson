@@ -1,4 +1,4 @@
-package ilgulee.com.kotlinlocationweatherrestfulapimvvmgson.data.response
+package ilgulee.com.kotlinlocationweatherrestfulapimvvmgson.data.db.entity
 
 import com.google.gson.annotations.SerializedName
 

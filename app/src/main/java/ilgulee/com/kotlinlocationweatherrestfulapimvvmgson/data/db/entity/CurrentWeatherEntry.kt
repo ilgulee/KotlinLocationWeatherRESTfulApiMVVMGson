@@ -1,7 +1,13 @@
-package ilgulee.com.kotlinlocationweatherrestfulapimvvmgson.data.response
+package ilgulee.com.kotlinlocationweatherrestfulapimvvmgson.data.db.entity
 
+import androidx.room.Embedded
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 
+const val CURRENT_WEATHER_ID = 0
+
+@Entity(tableName = "current_weather")
 data class CurrentWeatherEntry(
     @SerializedName("last_updated_epoch")
     val lastUpdatedEpoch: Long,
@@ -18,7 +24,8 @@ data class CurrentWeatherEntry(
     @SerializedName("is_day")
     val isDay: Int,
 
-    val condition: Condition,
+    @Embedded(prefix = "condition_")
+    val condition: Condition, //should note that this is not the primitive data type
 
     @SerializedName("wind_mph")
     val windMph: Double,
@@ -58,4 +65,7 @@ data class CurrentWeatherEntry(
 
     @SerializedName("vis_miles")
     val visMiles: Double
-)
+) {
+    @PrimaryKey(autoGenerate = false)
+    var id: Int = CURRENT_WEATHER_ID  //there should be only one instance in room data
+}
