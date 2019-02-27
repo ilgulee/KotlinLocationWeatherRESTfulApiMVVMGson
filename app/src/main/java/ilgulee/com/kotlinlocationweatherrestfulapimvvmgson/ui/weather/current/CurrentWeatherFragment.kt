@@ -5,9 +5,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import ilgulee.com.kotlinlocationweatherrestfulapimvvmgson.R
-import ilgulee.com.kotlinlocationweatherrestfulapimvvmgson.data.XUWeatherApiService
+import ilgulee.com.kotlinlocationweatherrestfulapimvvmgson.data.network.ConnectivityInterceptorImpl
+import ilgulee.com.kotlinlocationweatherrestfulapimvvmgson.data.network.WeatherNetworkDataSourceImpl
+import ilgulee.com.kotlinlocationweatherrestfulapimvvmgson.data.network.XUWeatherApiService
 import kotlinx.android.synthetic.main.current_weather_fragment.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -36,10 +39,15 @@ class CurrentWeatherFragment : Fragment() {
 
 
         //just confirm if the retrofit returns the correct data
-        val apiService = XUWeatherApiService()
+        val apiService = XUWeatherApiService(ConnectivityInterceptorImpl(this.context!!))
+        val weatherNetworkDataSource = WeatherNetworkDataSourceImpl(apiService)
+
+        weatherNetworkDataSource.downloadedCurrentWeather.observe(this, Observer {
+            text_test.text = it.toString()
+        })
         GlobalScope.launch(Dispatchers.Main) {
-            val response = apiService.getCurrentWeather("Seoul").await()
-            text_test.text = response.toString()
+            weatherNetworkDataSource.fetchCurrentWeather("seoul", "en")
+
         }
 
     }

@@ -1,4 +1,4 @@
-package ilgulee.com.kotlinlocationweatherrestfulapimvvmgson.data
+package ilgulee.com.kotlinlocationweatherrestfulapimvvmgson.data.network
 
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import ilgulee.com.kotlinlocationweatherrestfulapimvvmgson.BuildConfig
@@ -25,7 +25,9 @@ interface XUWeatherApiService {
     ): Deferred<CurrentWeatherResponse>  //Kotlin coroutines
 
     companion object {
-        operator fun invoke(): XUWeatherApiService {
+        operator fun invoke(
+            connectivityInterceptor: ConnectivityInterceptor
+        ): XUWeatherApiService {
             val requestInterceptor = Interceptor { chain ->
 
                 val url = chain.request()
@@ -43,6 +45,7 @@ interface XUWeatherApiService {
 
             val okHttpClient = OkHttpClient.Builder()
                 .addInterceptor(requestInterceptor)
+                .addInterceptor(connectivityInterceptor)
                 .build()
 
             return Retrofit.Builder()

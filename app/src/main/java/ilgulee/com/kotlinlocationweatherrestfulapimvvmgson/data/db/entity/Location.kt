@@ -2,7 +2,7 @@ package ilgulee.com.kotlinlocationweatherrestfulapimvvmgson.data.db.entity
 
 import com.google.gson.annotations.SerializedName
 
-class Location(
+data class Location(
 
     val name: String,
     val region: String,
