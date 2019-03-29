@@ -35,6 +35,7 @@ interface XUWeatherApiService {
                     .newBuilder()
                     .addQueryParameter("key", API_KEY)
                     .build()
+
                 val request = chain.request()
                     .newBuilder()
                     .url(url)
